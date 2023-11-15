@@ -96,17 +96,17 @@ pages.addEventListener("input", () => {
 function handleValidation(inputId, errorContainerId, errorMessage) {
     const input = document.getElementById(inputId);
     console.log(input);
-    console.log(input.validity.typeMismatch)
+    console.log(input.validity.typeMismatch);
     const errorContainer = document.getElementById(errorContainerId);
     // Need to check for .badInput because Firefox is weird
     if (input.validity.valueMissing || input.validity.typeMismatch || input.validity.badInput) {
         errorContainer.textContent = errorMessage;
-        input.classList.add('invalid-input');
-        return true
+        errorContainer.classList.add('invalid-input');
+        return true;
     } else {
         errorContainer.textContent = '';
-        input.classList.remove('invalid-input');
-        return false
+        errorContainer.classList.remove('invalid-input');
+        return false;
     }
 }
 
