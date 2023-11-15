@@ -3,11 +3,45 @@
     grid-template-columns: repeat(auto-fill, 200px);
     justify-content: left;
     gap: 25px;
+    margin-top: 10px;
 }
 
+#bookForm{
+    display: flex;
+    gap: 10px;
+}
+
+.form-input{
+    display: flex; 
+    flex-direction: column;
+}
 
 .card{
-    background-color: red;
+    background-color: rgb(29, 157, 91);
     /* width: 200px; */
     text-align: center;
+}
+
+input:valid {
+	background-color: white;
+}
+input:invalid {
+	background-color: lightpink;
+    border: red 1px solid;
+}
+
+/* This is the style of our error messages */
+.error-message {
+    width: 100%;
+    padding: 0.3rem;
+    font-size: 80%;
+    color: white;
+    background-color: #900;
+    border-radius: 0 0 5px 5px;
+    box-sizing: border-box;
+    display: none;
+}
+
+.invalid-input{
+    display:inline;
 }

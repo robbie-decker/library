@@ -13,13 +13,14 @@ Book.prototype.changeReadStatus = function(){
     console.log(this.readStatus);
 }
 
-function addBookToLibary(title, author, pages){
+function addBookToLibrary(title, author, pages){
     newBook = new Book(title, author, pages);
     myLibrary.push(newBook);
     displayBooks();
 }
 
 function createCard(book, i){
+    // Make the elements that make up the book
     const bookCard = document.createElement('div'); 
     const authorInfo = document.createElement('p');
     const titleInfo = document.createElement('p');
@@ -29,6 +30,7 @@ function createCard(book, i){
     readStatus.setAttribute('type', 'checkbox');
     // bookCard.dataset.index = i;
 
+    // Remove book from the array and rerender
     removeBook.addEventListener('click', () => {
         myLibrary.splice(i, 1);
         displayBooks();
@@ -37,6 +39,7 @@ function createCard(book, i){
     readStatus.addEventListener('change', () =>{
         book.changeReadStatus();
     });
+
 
     titleInfo.textContent = book.title;
     authorInfo.textContent = book.author;
@@ -55,15 +58,57 @@ function displayBooks(){
     }
 }
 
-const bookButton = document.getElementById("addBook");
-bookButton.addEventListener('click', () =>{
-    inputs = document.querySelectorAll('input[type="text"]');
-    let title = inputs[0].value;
-    let author = inputs[1].value; 
-    let pages = inputs[2].value;
-    addBookToLibary(title, author, pages);
+const bookForm = document.getElementById("bookForm");
+// Get inputs
+let title = document.getElementById("title")
+let author = document.getElementById("author")
+let pages = document.getElementById("pages")
+bookForm.addEventListener('submit', (e) =>{
+    // Prevents page refresh on submit
+    e.preventDefault();
+
+    let inputsValidationError = [];
+    inputsValidationError.push(handleValidation('title', 'title-error', 'I require a title!'));
+    inputsValidationError.push(handleValidation('author', 'author-error', 'I require an author!'));
+    inputsValidationError.push(handleValidation('pages', 'pages-error', 'I require a valid # of pages!'));
+
+    // No errors so add book
+    console.log(inputsValidationError);
+    if(!inputsValidationError.includes(true)){
+        addBookToLibrary(title.value, author.value, pages.value);
+    }
+});
+
+// Add event handlers for inputs
+title.addEventListener("input", () => {
+    handleValidation('title', 'title-error', 'I require a title!');
+});
+author.addEventListener("input", () => {
+    handleValidation('author', 'author-error', 'I require an author!');
+});
+pages.addEventListener("input", () => {
+    handleValidation('pages', 'pages-error', 'I require a valid # of pages!');
 });
 
 
-addBookToLibary("Romeo and Juliet", "William Shakespear", 225);
-addBookToLibary("Player Piano", "Kurt Vonnegut", 336);
+// Returns true if found error
+// Returns false if no error
+function handleValidation(inputId, errorContainerId, errorMessage) {
+    const input = document.getElementById(inputId);
+    console.log(input);
+    console.log(input.validity.typeMismatch);
+    const errorContainer = document.getElementById(errorContainerId);
+    // Need to check for .badInput because Firefox is weird
+    if (input.validity.valueMissing || input.validity.typeMismatch || input.validity.badInput) {
+        errorContainer.textContent = errorMessage;
+        errorContainer.classList.add('invalid-input');
+        return true;
+    } else {
+        errorContainer.textContent = '';
+        errorContainer.classList.remove('invalid-input');
+        return false;
+    }
+}
+
+addBookToLibrary("Romeo and Juliet", "William Shakespear", 225);
+addBookToLibrary("Player Piano", "Kurt Vonnegut", 336);

@@ -8,16 +8,26 @@
 </head>
 <body>
     <p>Here is some info</p>
-    <form class="form">
-        <input type="text">
-        <input type="text">
-        <input type="text">
+    <form id="bookForm" novalidate>
+        <div class="form-input">
+            <label for="title">Title:</label>
+            <input type="text" id="title" required>
+            <span class="error-message" id="title-error"></span>
+        </div>
+        <div class="form-input">
+            <label for="author">Author:</label>
+            <input type="text" id="author" required>
+            <div class="error-message" id="author-error"></div>
+        </div>
+        <div class="form-input">
+            <label for="pages">Pages:</label>
+            <input type="number" id="pages" required>
+            <div class="error-message" id="pages-error"></div>
+        </div>
+        <button type="submit"id="addBook">Click to add book</button>
     </form>
-    <button id="addBook">Click to add book</button>
     
-    <div id = books>
-
-    </div>
+    <div id = books></div>
     <script src="script.js"></script>
 </body>
 </html>
