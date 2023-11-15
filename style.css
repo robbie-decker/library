@@ -3,11 +3,19 @@
     grid-template-columns: repeat(auto-fill, 200px);
     justify-content: left;
     gap: 25px;
+    margin-top: 10px;
 }
 
 
 .card{
-    background-color: red;
+    background-color: rgb(29, 157, 91);
     /* width: 200px; */
     text-align: center;
+}
+
+input:valid {
+	background-color: white;
+}
+input:invalid {
+	background-color: lightpink;
 }
